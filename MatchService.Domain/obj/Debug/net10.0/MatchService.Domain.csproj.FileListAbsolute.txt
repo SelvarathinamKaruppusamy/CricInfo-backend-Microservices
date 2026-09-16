@@ -9,3 +9,15 @@ C:\Users\selva.karuppusamy\Desktop\POW\Projects\CricInfo.Microservices\MatchServ
 C:\Users\selva.karuppusamy\Desktop\POW\Projects\CricInfo.Microservices\MatchService.Domain\obj\Debug\net10.0\refint\MatchService.Domain.dll
 C:\Users\selva.karuppusamy\Desktop\POW\Projects\CricInfo.Microservices\MatchService.Domain\obj\Debug\net10.0\MatchService.Domain.pdb
 C:\Users\selva.karuppusamy\Desktop\POW\Projects\CricInfo.Microservices\MatchService.Domain\obj\Debug\net10.0\ref\MatchService.Domain.dll
+C:\Users\pradeep.murugan\Downloads\CricInfo-backend-Microservices\MatchService.Domain\bin\Debug\net10.0\MatchService.Domain.deps.json
+C:\Users\pradeep.murugan\Downloads\CricInfo-backend-Microservices\MatchService.Domain\bin\Debug\net10.0\MatchService.Domain.dll
+C:\Users\pradeep.murugan\Downloads\CricInfo-backend-Microservices\MatchService.Domain\bin\Debug\net10.0\MatchService.Domain.pdb
+C:\Users\pradeep.murugan\Downloads\CricInfo-backend-Microservices\MatchService.Domain\obj\Debug\net10.0\MatchService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pradeep.murugan\Downloads\CricInfo-backend-Microservices\MatchService.Domain\obj\Debug\net10.0\MatchService.Domain.AssemblyInfoInputs.cache
+C:\Users\pradeep.murugan\Downloads\CricInfo-backend-Microservices\MatchService.Domain\obj\Debug\net10.0\MatchService.Domain.AssemblyInfo.cs
+C:\Users\pradeep.murugan\Downloads\CricInfo-backend-Microservices\MatchService.Domain\obj\Debug\net10.0\MatchService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\pradeep.murugan\Downloads\CricInfo-backend-Microservices\MatchService.Domain\obj\Debug\net10.0\MatchService.Domain.sourcelink.json
+C:\Users\pradeep.murugan\Downloads\CricInfo-backend-Microservices\MatchService.Domain\obj\Debug\net10.0\MatchService.Domain.dll
+C:\Users\pradeep.murugan\Downloads\CricInfo-backend-Microservices\MatchService.Domain\obj\Debug\net10.0\refint\MatchService.Domain.dll
+C:\Users\pradeep.murugan\Downloads\CricInfo-backend-Microservices\MatchService.Domain\obj\Debug\net10.0\MatchService.Domain.pdb
+C:\Users\pradeep.murugan\Downloads\CricInfo-backend-Microservices\MatchService.Domain\obj\Debug\net10.0\ref\MatchService.Domain.dll
