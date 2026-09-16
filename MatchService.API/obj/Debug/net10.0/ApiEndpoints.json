@@ -1,0 +1,28 @@
+[
+  {
+    "ContainingType": "MatchService.API.Controllers.MatchController",
+    "Method": "ProcessBall",
+    "RelativePath": "api/matches/ball",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "MatchService.Application.DTOs.BallUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MatchService.API.Controllers.MatchController",
+    "Method": "GetLiveMatch",
+    "RelativePath": "api/matches/live",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

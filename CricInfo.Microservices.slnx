@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/MatchService/">
+    <Project Path="MatchService.API/MatchService.API.csproj" Id="0705113a-1f2a-482b-8b58-612741b310d1" />
+    <Project Path="MatchService.Application/MatchService.Application.csproj" />
+    <Project Path="MatchService.Domain/MatchService.Domain.csproj" />
+    <Project Path="MatchService.Infrastructure/MatchService.Infrastructure.csproj" />
+  </Folder>
+</Solution>
