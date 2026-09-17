@@ -23,7 +23,6 @@ public class QuizRepository : IQuizRepository
             .Take(10)
             .ToListAsync();
     }
-
     public async Task SaveResultAsync(
         QuizResult result)
     {
