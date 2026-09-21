@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MatchService.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b72cd52c947c92c04f44c1de2c30fffa64360c09")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+548fdf34131e08af12edc2c2992aa68bc7bf9192")]
 [assembly: System.Reflection.AssemblyProductAttribute("MatchService.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MatchService.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
