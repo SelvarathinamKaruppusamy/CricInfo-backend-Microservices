@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Domain\\MatchService.Domain.csproj": {}
+    "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\MatchService.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Domain\\MatchService.Domain.csproj": {
+    "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\MatchService.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Domain\\MatchService.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\MatchService.Domain.csproj",
         "projectName": "MatchService.Domain",
-        "projectPath": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Domain\\MatchService.Domain.csproj",
-        "packagesPath": "C:\\Users\\selva.karuppusamy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Domain\\obj\\",
+        "projectPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\MatchService.Domain.csproj",
+        "packagesPath": "C:\\Users\\bharath.thiru\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\selva.karuppusamy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\bharath.thiru\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

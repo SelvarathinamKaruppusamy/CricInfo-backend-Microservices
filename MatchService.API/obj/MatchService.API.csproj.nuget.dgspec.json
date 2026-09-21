@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.API\\MatchService.API.csproj": {}
+    "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.API\\MatchService.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.API\\MatchService.API.csproj": {
+    "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.API\\MatchService.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.API\\MatchService.API.csproj",
+        "projectUniqueName": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.API\\MatchService.API.csproj",
         "projectName": "MatchService.API",
-        "projectPath": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.API\\MatchService.API.csproj",
-        "packagesPath": "C:\\Users\\selva.karuppusamy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.API\\obj\\",
+        "projectPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.API\\MatchService.API.csproj",
+        "packagesPath": "C:\\Users\\bharath.thiru\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\selva.karuppusamy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\bharath.thiru\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -33,11 +33,11 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Application\\MatchService.Application.csproj": {
-                "projectPath": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Application\\MatchService.Application.csproj"
+              "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Application\\MatchService.Application.csproj": {
+                "projectPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Application\\MatchService.Application.csproj"
               },
-              "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Infrastructure\\MatchService.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Infrastructure\\MatchService.Infrastructure.csproj"
+              "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Infrastructure\\MatchService.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Infrastructure\\MatchService.Infrastructure.csproj"
               }
             }
           }
@@ -513,20 +513,20 @@
         }
       }
     },
-    "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Application\\MatchService.Application.csproj": {
+    "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Application\\MatchService.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Application\\MatchService.Application.csproj",
+        "projectUniqueName": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Application\\MatchService.Application.csproj",
         "projectName": "MatchService.Application",
-        "projectPath": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Application\\MatchService.Application.csproj",
-        "packagesPath": "C:\\Users\\selva.karuppusamy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Application\\obj\\",
+        "projectPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Application\\MatchService.Application.csproj",
+        "packagesPath": "C:\\Users\\bharath.thiru\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\selva.karuppusamy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\bharath.thiru\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -542,8 +542,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Domain\\MatchService.Domain.csproj": {
-                "projectPath": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Domain\\MatchService.Domain.csproj"
+              "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\MatchService.Domain.csproj": {
+                "projectPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\MatchService.Domain.csproj"
               }
             }
           }
@@ -864,20 +864,20 @@
         }
       }
     },
-    "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Domain\\MatchService.Domain.csproj": {
+    "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\MatchService.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Domain\\MatchService.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\MatchService.Domain.csproj",
         "projectName": "MatchService.Domain",
-        "projectPath": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Domain\\MatchService.Domain.csproj",
-        "packagesPath": "C:\\Users\\selva.karuppusamy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Domain\\obj\\",
+        "projectPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\MatchService.Domain.csproj",
+        "packagesPath": "C:\\Users\\bharath.thiru\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\selva.karuppusamy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\bharath.thiru\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -1205,20 +1205,20 @@
         }
       }
     },
-    "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Infrastructure\\MatchService.Infrastructure.csproj": {
+    "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Infrastructure\\MatchService.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Infrastructure\\MatchService.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Infrastructure\\MatchService.Infrastructure.csproj",
         "projectName": "MatchService.Infrastructure",
-        "projectPath": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Infrastructure\\MatchService.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\selva.karuppusamy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Infrastructure\\MatchService.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\bharath.thiru\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\selva.karuppusamy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\bharath.thiru\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -1234,11 +1234,11 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Application\\MatchService.Application.csproj": {
-                "projectPath": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Application\\MatchService.Application.csproj"
+              "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Application\\MatchService.Application.csproj": {
+                "projectPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Application\\MatchService.Application.csproj"
               },
-              "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Domain\\MatchService.Domain.csproj": {
-                "projectPath": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Domain\\MatchService.Domain.csproj"
+              "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\MatchService.Domain.csproj": {
+                "projectPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\MatchService.Domain.csproj"
               }
             }
           }

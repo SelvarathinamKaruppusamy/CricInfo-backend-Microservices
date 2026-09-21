@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QuAWwCQBGxc=",
+  "dgSpecHash": "ab4GAH+lZ4c=",
   "success": true,
-  "projectFilePath": "C:\\Users\\selva.karuppusamy\\Desktop\\POW\\Projects\\CricInfo.Microservices\\MatchService.Domain\\MatchService.Domain.csproj",
+  "projectFilePath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\MatchService.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
