@@ -8,23 +8,23 @@
     "net10.0": []
   },
   "packageFolders": {
-    "C:\\Users\\bharath.thiru\\.nuget\\packages\\": {},
+    "C:\\Users\\yuvasri.gurusamy\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\MatchService.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\yuvasri.gurusamy\\source\\repos\\CricinfoBackendMicroservice\\MatchService.Domain\\MatchService.Domain.csproj",
       "projectName": "MatchService.Domain",
-      "projectPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\MatchService.Domain.csproj",
-      "packagesPath": "C:\\Users\\bharath.thiru\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bharath.thiru\\source\\repos\\CricInfo-backend-Microservices\\MatchService.Domain\\obj\\",
+      "projectPath": "C:\\Users\\yuvasri.gurusamy\\source\\repos\\CricinfoBackendMicroservice\\MatchService.Domain\\MatchService.Domain.csproj",
+      "packagesPath": "C:\\Users\\yuvasri.gurusamy\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\yuvasri.gurusamy\\source\\repos\\CricinfoBackendMicroservice\\MatchService.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\bharath.thiru\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\yuvasri.gurusamy\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
