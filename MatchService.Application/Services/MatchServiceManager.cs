@@ -2,6 +2,7 @@
 using MatchService.Application.Interfaces;
 using MatchService.Application.Interfaces.Repositories;
 using MatchService.Application.Interfaces.Services;
+using MatchService.Application.Memory;
 using MatchService.Domain.Entities;
 namespace MatchService.Application.Services;
 
@@ -23,9 +24,54 @@ public class MatchServiceManager : IMatchService
         _matchPlayerRepository = matchPlayerRepository;
         _unitOfWork = unitOfWork;
     }
-    Task<bool> IMatchService.ChangeBowlerAsync(ChangeBowlerDto dto)
+    public async Task<bool> ChangeBowlerAsync(ChangeBowlerDto dto)
     {
-        throw new NotImplementedException();
+        var match = await _matchRepository.GetByMatchNoAsync(dto.MatchNo);
+
+        if (match == null)
+        {
+            return false;
+        }
+        if (match.CurrentBowlingTeamIndex == null)
+        {
+            return false;
+        }
+
+        var bowlingTeamId = match.CurrentBowlingTeamIndex.Value;
+        var bowlingTeam = await _matchTeamRepository.GetAsync(
+            bowlingTeamId,
+            match.MatchNo);
+
+        if (bowlingTeam == null)
+        {
+            return false;
+        }
+
+        var bowler = await _matchPlayerRepository.GetAsync(
+            dto.BowlerPlayerId,
+            bowlingTeam.TeamId,
+            match.MatchNo);
+
+        if (bowler == null)
+        {
+            return false;
+        }
+
+      
+        if (!string.Equals(bowler.Role, "Bowler",
+                StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(bowler.Role, "All-Rounder",
+                StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(bowler.Role, "All Rounder",
+                StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+       
+        match.CurrentBowlerPlayerId = bowler.PlayerId;
+        await _unitOfWork.SaveChangesAsync();
+        return true;
     }
 
     public async Task<MatchDto?> GetLiveMatchAsync()
@@ -115,72 +161,37 @@ public class MatchServiceManager : IMatchService
 
     public async Task<bool> ProcessBallAsync(BallUpdateDto dto)
     {
-        // 1. Validate request
+     
         if (string.IsNullOrWhiteSpace(dto.BallResult))
         {
-            Console.WriteLine("ERROR: BallResult is empty.");
             return false;
         }
-
-        // 2. Get match
         var match = await _matchRepository
             .GetByMatchNoAsync(dto.MatchNo);
 
         if (match == null)
         {
-            Console.WriteLine(
-                $"ERROR: Match {dto.MatchNo} not found.");
-
             return false;
         }
-
-        Console.WriteLine(
-            $"Match found: {match.MatchNo}, Status: {match.Status}");
-
-        // 3. Make sure match is live
         if (!string.Equals(
             match.Status,
             "LIVE",
             StringComparison.OrdinalIgnoreCase))
         {
-            Console.WriteLine(
-                $"ERROR: Match {match.MatchNo} is not LIVE.");
-
             return false;
         }
+        int innings = match.CurrentInnings.Value;
 
-        // 4. Validate current players
         if (match.StrikerPlayerId == null ||
             match.NonStrikerPlayerId == null ||
             match.CurrentBowlerPlayerId == null)
         {
-            Console.WriteLine(
-                "ERROR: Striker, NonStriker or Bowler ID is NULL.");
-
+           
             return false;
         }
-
-        Console.WriteLine(
-            $"Batting Team ID: {match.CurrentBattingTeamIndex}");
-
-        Console.WriteLine(
-            $"Bowling Team ID: {match.CurrentBowlingTeamIndex}");
-
-        Console.WriteLine(
-            $"Striker: {match.StrikerPlayerId}");
-
-        Console.WriteLine(
-            $"NonStriker: {match.NonStrikerPlayerId}");
-
-        Console.WriteLine(
-            $"Bowler: {match.CurrentBowlerPlayerId}");
-
-        // 5. Get teams
+ 
         var teams = await _matchTeamRepository
             .GetByMatchNoAsync(dto.MatchNo);
-
-        Console.WriteLine(
-            $"Teams found: {teams.Count}");
 
         if (teams.Count < 2)
         {
@@ -190,94 +201,63 @@ public class MatchServiceManager : IMatchService
             return false;
         }
 
-        // IMPORTANT:
-        // CurrentBattingTeamIndex actually contains TeamId
+      
         var battingTeam = teams.FirstOrDefault(
             x => x.TeamId == match.CurrentBattingTeamIndex);
 
-        // IMPORTANT:
-        // CurrentBowlingTeamIndex actually contains TeamId
         var bowlingTeam = teams.FirstOrDefault(
             x => x.TeamId == match.CurrentBowlingTeamIndex);
 
         if (battingTeam == null)
         {
-            Console.WriteLine(
-                $"ERROR: Batting team " +
-                $"{match.CurrentBattingTeamIndex} not found.");
-
             return false;
         }
 
         if (bowlingTeam == null)
         {
-            Console.WriteLine(
-                $"ERROR: Bowling team " +
-                $"{match.CurrentBowlingTeamIndex} not found.");
-
             return false;
         }
 
-        Console.WriteLine(
-            $"Batting Team: {battingTeam.TeamId}");
-
-        Console.WriteLine(
-            $"Bowling Team: {bowlingTeam.TeamId}");
-
-        // 6. Get striker
         var striker = await _matchPlayerRepository.GetAsync(
             match.StrikerPlayerId.Value,
             battingTeam.TeamId,
             match.MatchNo);
 
-        // 7. Get non-striker
+       
         var nonStriker = await _matchPlayerRepository.GetAsync(
             match.NonStrikerPlayerId.Value,
             battingTeam.TeamId,
             match.MatchNo);
 
-        // 8. Get bowler
+        
         var bowler = await _matchPlayerRepository.GetAsync(
             match.CurrentBowlerPlayerId.Value,
             bowlingTeam.TeamId,
             match.MatchNo);
 
-        // 9. Validate players
+        
         if (striker == null)
         {
-            Console.WriteLine(
-                $"ERROR: Striker " +
-                $"{match.StrikerPlayerId} not found.");
-
+            
             return false;
         }
 
         if (nonStriker == null)
         {
-            Console.WriteLine(
-                $"ERROR: Non-striker " +
-                $"{match.NonStrikerPlayerId} not found.");
-
+           
             return false;
         }
 
         if (bowler == null)
         {
-            Console.WriteLine(
-                $"ERROR: Bowler " +
-                $"{match.CurrentBowlerPlayerId} not found.");
-
             return false;
         }
 
-        // 10. Normalize ball result
+        
         var ballResult =
             dto.BallResult.Trim().ToUpperInvariant();
 
-        Console.WriteLine(
-            $"Processing ball: {ballResult}");
-
-        // 11. Process ball
+        
         switch (ballResult)
         {
             case "0":
@@ -287,11 +267,17 @@ public class MatchServiceManager : IMatchService
                     striker,
                     bowler);
 
+                HandleOverCompletion(
+                    match,
+                    battingTeam,
+                    bowler);
+
                 break;
 
             case "1":
 
                 ProcessRuns(
+                    match,
                     battingTeam,
                     striker,
                     bowler,
@@ -299,21 +285,32 @@ public class MatchServiceManager : IMatchService
 
                 SwapStrike(match);
 
-                break;
+                HandleOverCompletion(
+                    match,
+                    battingTeam,
+                    bowler);
 
+                break;
             case "2":
 
                 ProcessRuns(
+                    match,
                     battingTeam,
                     striker,
                     bowler,
                     2);
+
+                HandleOverCompletion(
+                    match,
+                    battingTeam,
+                    bowler);
 
                 break;
 
             case "3":
 
                 ProcessRuns(
+                    match,
                     battingTeam,
                     striker,
                     bowler,
@@ -321,11 +318,17 @@ public class MatchServiceManager : IMatchService
 
                 SwapStrike(match);
 
+                HandleOverCompletion(
+                    match,
+                    battingTeam,
+                    bowler);
+
                 break;
 
             case "4":
 
                 ProcessRuns(
+                    match,
                     battingTeam,
                     striker,
                     bowler,
@@ -333,11 +336,16 @@ public class MatchServiceManager : IMatchService
 
                 striker.Fours++;
 
-                break;
+                HandleOverCompletion(
+                    match,
+                    battingTeam,
+                    bowler);
 
+                break;
             case "6":
 
                 ProcessRuns(
+                    match,
                     battingTeam,
                     striker,
                     bowler,
@@ -345,11 +353,16 @@ public class MatchServiceManager : IMatchService
 
                 striker.Sixes++;
 
-                break;
+                HandleOverCompletion(
+                    match,
+                    battingTeam,
+                    bowler);
 
+                break;
             case "WD":
 
                 ProcessWide(
+                    match,
                     battingTeam,
                     bowler);
 
@@ -358,6 +371,7 @@ public class MatchServiceManager : IMatchService
             case "NB":
 
                 ProcessNoBall(
+                    match,
                     battingTeam,
                     bowler);
 
@@ -371,6 +385,11 @@ public class MatchServiceManager : IMatchService
                     bowler,
                     match);
 
+                HandleOverCompletion(
+                    match,
+                    battingTeam,
+                    bowler);
+
                 break;
 
             default:
@@ -381,13 +400,103 @@ public class MatchServiceManager : IMatchService
                 return false;
         }
 
-        // 12. Save everything
+        StoreBall(
+    match.MatchNo,
+    innings,
+    ballResult);
+
+        if (match.CurrentInnings == 1 &&
+            IsFirstInningsCompleted(battingTeam))
+        {
+            var result = await StartSecondInningsAsync(match.MatchNo);
+
+            if (!result)
+                return false;
+
+            await _unitOfWork.SaveChangesAsync();
+
+            return true;
+        }
+
+        // Second innings completed
+        if (match.CurrentInnings == 2 &&
+            IsMatchCompleted(match, battingTeam, bowlingTeam))
+        {
+            FinishMatch(
+                match,
+                battingTeam,
+                bowlingTeam);
+        }
+
         await _unitOfWork.SaveChangesAsync();
 
-        Console.WriteLine(
-            $"Ball {ballResult} processed successfully.");
-
         return true;
+    }
+    private void StoreBall(
+    int matchNo,
+    int innings,
+    string ball)
+    {
+        if (innings == 1)
+        {
+            if (!MatchBallStore.FirstInningsBalls
+                .TryGetValue(matchNo, out var balls))
+            {
+                balls = new List<string>();
+
+                MatchBallStore.FirstInningsBalls[matchNo] = balls;
+            }
+
+            balls.Add(ball);
+        }
+        else if (innings == 2)
+        {
+            if (!MatchBallStore.SecondInningsBalls
+                .TryGetValue(matchNo, out var balls))
+            {
+                balls = new List<string>();
+
+                MatchBallStore.SecondInningsBalls[matchNo] = balls;
+            }
+
+            balls.Add(ball);
+        }
+    }
+    private bool IsFirstInningsCompleted(MatchTeam battingTeam)
+    {
+        return (battingTeam.Wickets ?? 0) >= 10 ||
+               (battingTeam.Balls ?? 0) >= 120;
+    }
+    private void HandleOverCompletion(
+     Match match,
+     MatchTeam battingTeam,
+     MatchPlayer bowler)
+    {
+        int balls =
+            battingTeam.Balls ?? 0;
+
+        if (balls == 0 || balls % 6 != 0)
+            return;
+
+        string key =
+            $"{match.MatchNo}_{bowler.PlayerId}";
+
+        int overRuns =
+            BowlingOverStore.OverRunsConceded
+                .GetValueOrDefault(key, 0);
+
+        if (overRuns == 0)
+        {
+            bowler.Maidens =
+                (bowler.Maidens) + 1;
+        }
+
+        BowlingOverStore.OverRunsConceded
+            .TryRemove(key, out _);
+
+        UpdateBowlerOvers(bowler);
+
+        SwapStrike(match);
     }
     private void ProcessDotBall(
     MatchTeam battingTeam,
@@ -405,6 +514,7 @@ public class MatchServiceManager : IMatchService
         UpdateScore(battingTeam);
     }
     private void ProcessRuns(
+    Match match,
     MatchTeam battingTeam,
     MatchPlayer striker,
     MatchPlayer bowler,
@@ -415,13 +525,19 @@ public class MatchServiceManager : IMatchService
             striker,
             bowler);
 
-        striker.Runs = (striker.Runs) + runs;
+        striker.Runs =
+            (striker.Runs) + runs;
 
         battingTeam.Runs =
             (battingTeam.Runs ?? 0) + runs;
 
         bowler.RunsConceded =
             (bowler.RunsConceded) + runs;
+
+        AddOverRuns(
+            match,
+            bowler,
+            runs);
 
         UpdateScore(battingTeam);
 
@@ -430,9 +546,9 @@ public class MatchServiceManager : IMatchService
         UpdateEconomy(bowler);
     }
     private void UpdateLegalBall(
-        MatchTeam battingTeam,
-        MatchPlayer striker,
-        MatchPlayer bowler)
+     MatchTeam battingTeam,
+     MatchPlayer striker,
+     MatchPlayer bowler)
     {
         battingTeam.Balls =
             (battingTeam.Balls ?? 0) + 1;
@@ -442,6 +558,21 @@ public class MatchServiceManager : IMatchService
 
         bowler.BowlingBalls =
             (bowler.BowlingBalls) + 1;
+
+        UpdateBowlerOvers(bowler);
+    }
+    private void AddOverRuns(
+    Match match,
+    MatchPlayer bowler,
+    int runs)
+    {
+        string key =
+            $"{match.MatchNo}_{bowler.PlayerId}";
+
+        BowlingOverStore.OverRunsConceded.AddOrUpdate(
+            key,
+            runs,
+            (_, currentRuns) => currentRuns + runs);
     }
     private void UpdateScore(MatchTeam team)
     {
@@ -506,8 +637,9 @@ public class MatchServiceManager : IMatchService
             temp;
     }
     private void ProcessWide(
-    MatchTeam battingTeam,
-    MatchPlayer bowler)
+     Match match,
+     MatchTeam battingTeam,
+     MatchPlayer bowler)
     {
         battingTeam.Runs =
             (battingTeam.Runs ?? 0) + 1;
@@ -518,12 +650,19 @@ public class MatchServiceManager : IMatchService
         bowler.RunsConceded =
             (bowler.RunsConceded) + 1;
 
+        AddOverRuns(
+            match,
+            bowler,
+            1);
+
         UpdateScore(battingTeam);
+
         UpdateEconomy(bowler);
     }
     private void ProcessNoBall(
-    MatchTeam battingTeam,
-    MatchPlayer bowler)
+     Match match,
+     MatchTeam battingTeam,
+     MatchPlayer bowler)
     {
         battingTeam.Runs =
             (battingTeam.Runs ?? 0) + 1;
@@ -534,29 +673,31 @@ public class MatchServiceManager : IMatchService
         bowler.RunsConceded =
             (bowler.RunsConceded) + 1;
 
+        AddOverRuns(
+            match,
+            bowler,
+            1);
+
         UpdateScore(battingTeam);
+
         UpdateEconomy(bowler);
     }
     private async Task ProcessWicket(
-    MatchTeam battingTeam,
-    MatchPlayer striker,
-    MatchPlayer bowler,
-    Match match)
+     MatchTeam battingTeam,
+     MatchPlayer striker,
+     MatchPlayer bowler,
+     Match match)
     {
-        // Increase team wickets
         battingTeam.Wickets =
             (battingTeam.Wickets ?? 0) + 1;
 
-        // Mark striker as out
         striker.Status = "Out";
 
-        // Increase bowler wickets
         bowler.Wickets =
             (bowler.Wickets) + 1;
 
-        // One legal ball
         battingTeam.Balls =
-            (battingTeam.Balls) + 1;
+            (battingTeam.Balls ?? 0) + 1;
 
         striker.Balls =
             (striker.Balls) + 1;
@@ -564,16 +705,16 @@ public class MatchServiceManager : IMatchService
         bowler.BowlingBalls =
             (bowler.BowlingBalls) + 1;
 
-        // Update score
+        UpdateBowlerOvers(bowler);
+
         UpdateScore(battingTeam);
 
-        // Update player statistics
         UpdateStrikeRate(striker);
+
         UpdateEconomy(bowler);
 
-        // Find next batter
-        var nextBatter = await _matchPlayerRepository
-            .GetNextBatterAsync(
+        var nextBatter =
+            await _matchPlayerRepository.GetNextBatterAsync(
                 battingTeam.TeamId,
                 match.MatchNo);
 
@@ -581,7 +722,8 @@ public class MatchServiceManager : IMatchService
         {
             nextBatter.Status = "Batting";
 
-            match.StrikerPlayerId = nextBatter.PlayerId;
+            match.StrikerPlayerId =
+                nextBatter.PlayerId;
         }
     }
 
@@ -590,14 +732,315 @@ public class MatchServiceManager : IMatchService
         throw new NotImplementedException();
     }
 
-    Task<bool> IMatchService.StartMatchAsync(int matchNo)
+    public async Task<bool> StartMatchAsync(int matchNo)
     {
-        throw new NotImplementedException();
-    }
+        
+        // 1. Get Match
+        var match = await _matchRepository.GetByMatchNoAsync(matchNo);
 
-    Task<bool> IMatchService.StartSecondInningsAsync(int matchNo)
+        if (match == null)
+        {
+            return false;
+        }
+
+        // 2. Check Toss
+        if (string.IsNullOrWhiteSpace(match.TossWinner) ||
+            string.IsNullOrWhiteSpace(match.TossDecision))
+        {
+            return false;
+        }
+
+        // 3. Get Teams
+        var teams = await _matchTeamRepository.GetByMatchNoAsync(matchNo);
+        if (teams.Count != 2)
+        {
+            return false;
+        }
+
+        MatchTeam? battingTeam;
+        MatchTeam? bowlingTeam;
+
+        // 4. Determine batting / bowling team from toss
+        if (match.TossDecision.Equals(
+                "Bat",
+                StringComparison.OrdinalIgnoreCase))
+        {
+            battingTeam = teams.FirstOrDefault(x =>
+                string.Equals(
+                    x.ShortName?.Trim(),
+                    match.TossWinner.Trim(),
+                    StringComparison.OrdinalIgnoreCase));
+
+            bowlingTeam = teams.FirstOrDefault(x =>
+                !string.Equals(
+                    x.ShortName?.Trim(),
+                    match.TossWinner.Trim(),
+                    StringComparison.OrdinalIgnoreCase));
+        }
+        else if (match.TossDecision.Equals(
+                     "Bowl",
+                     StringComparison.OrdinalIgnoreCase))
+        {
+            bowlingTeam = teams.FirstOrDefault(x =>
+                string.Equals(
+                    x.ShortName?.Trim(),
+                    match.TossWinner.Trim(),
+                    StringComparison.OrdinalIgnoreCase));
+
+            battingTeam = teams.FirstOrDefault(x =>
+                !string.Equals(
+                    x.ShortName?.Trim(),
+                    match.TossWinner.Trim(),
+                    StringComparison.OrdinalIgnoreCase));
+        }
+        else
+        {
+            return false;
+        }
+
+        // 5. Validate teams
+        if (battingTeam == null)
+        {
+            return false;
+        }
+
+        if (bowlingTeam == null)
+        {
+            
+            return false;
+        }
+        // 6. Get batting players
+        var battingPlayers =
+            await _matchPlayerRepository.GetByTeamAsync(
+                battingTeam.TeamId,
+                matchNo);
+
+      
+
+        // 7. Get bowling players
+        var bowlingPlayers =
+            await _matchPlayerRepository.GetByTeamAsync(
+                bowlingTeam.TeamId,
+                matchNo);
+
+        // 8. Validate players
+        if (battingPlayers.Count < 2)
+        {
+            
+            return false;
+        }
+
+        if (bowlingPlayers.Count < 1)
+        {
+           
+            return false;
+        }
+
+        // 9. Opening batsmen
+        var striker = battingPlayers[0];
+        var nonStriker = battingPlayers[1];
+
+        // 10. Opening bowler
+        var bowler = bowlingPlayers.FirstOrDefault(x =>
+            string.Equals(
+                x.Role?.Trim(),
+                "Bowler",
+                StringComparison.OrdinalIgnoreCase)
+            ||
+            string.Equals(
+                x.Role?.Trim(),
+                "All Rounder",
+                StringComparison.OrdinalIgnoreCase)
+            ||
+            string.Equals(
+                x.Role?.Trim(),
+                "All-Rounder",
+                StringComparison.OrdinalIgnoreCase));
+
+        if (bowler == null)
+        {
+            
+            return false;
+        }
+
+        
+        // 11. Update match
+        match.CurrentBattingTeamIndex = battingTeam.TeamId;
+        match.CurrentBowlingTeamIndex = bowlingTeam.TeamId;
+
+        match.StrikerPlayerId = striker.PlayerId;
+        match.NonStrikerPlayerId = nonStriker.PlayerId;
+        match.CurrentBowlerPlayerId = bowler.PlayerId;
+
+        match.CurrentInnings = 1;
+        match.Status = "LIVE";
+
+        // 12. Update player status
+        striker.Status = "Batting";
+        nonStriker.Status = "Batting";
+        bowler.Status = "Bowling";
+
+        // 13. Save
+        await _unitOfWork.SaveChangesAsync();
+
+        return true;
+    }
+    public async Task<bool> StartSecondInningsAsync(int matchNo)
     {
-        throw new NotImplementedException();
+        var match = await _matchRepository.GetByMatchNoAsync(matchNo);
+
+        if (match == null)
+            return false;
+
+        if (match.CurrentInnings == 2)
+            return true;
+
+        if (match.CurrentBattingTeamIndex == 0 ||
+            match.CurrentBowlingTeamIndex == 0)
+            return false;
+
+        var firstInningsBattingTeam =
+            await _matchTeamRepository.GetAsync(
+                match.CurrentBattingTeamIndex.Value,
+                match.MatchNo);
+
+        var firstInningsBowlingTeam =
+            await _matchTeamRepository.GetAsync(
+                match.CurrentBowlingTeamIndex.Value,
+                match.MatchNo);
+
+        if (firstInningsBattingTeam == null ||
+            firstInningsBowlingTeam == null)
+            return false;
+
+        // Swap batting and bowling teams
+        var temp = match.CurrentBattingTeamIndex;
+
+        match.CurrentBattingTeamIndex =
+            match.CurrentBowlingTeamIndex;
+
+        match.CurrentBowlingTeamIndex = temp;
+
+        // Start second innings
+        match.CurrentInnings = 2;
+
+        var battingTeam =
+            await _matchTeamRepository.GetAsync(
+                match.CurrentBattingTeamIndex.Value,
+                match.MatchNo);
+
+        var bowlingTeam =
+            await _matchTeamRepository.GetAsync(
+                match.CurrentBowlingTeamIndex.Value,
+                match.MatchNo);
+
+        if (battingTeam == null || bowlingTeam == null)
+            return false;
+
+        // Get opening batsmen
+        var battingPlayers =
+            await _matchPlayerRepository.GetByTeamAsync(
+                battingTeam.TeamId,
+                match.MatchNo);
+
+        if (battingPlayers.Count < 2)
+            return false;
+
+        var striker = battingPlayers[0];
+        var nonStriker = battingPlayers[1];
+
+        striker.Status = "Batting";
+        nonStriker.Status = "Batting";
+
+        match.StrikerPlayerId = striker.PlayerId;
+        match.NonStrikerPlayerId = nonStriker.PlayerId;
+
+        // Get opening bowler
+        var bowlingPlayers =
+            await _matchPlayerRepository.GetByTeamAsync(
+                bowlingTeam.TeamId,
+                match.MatchNo);
+
+        var openingBowler = bowlingPlayers.FirstOrDefault(
+            x => x.Role == "Bowler" ||
+                 x.Role == "All Rounder" ||
+                 x.Role == "All-Rounder");
+
+        if (openingBowler == null)
+            return false;
+
+        match.CurrentBowlerPlayerId =
+            openingBowler.PlayerId;
+
+        await _unitOfWork.SaveChangesAsync();
+
+        return true;
+    }
+    private bool IsMatchCompleted(
+    Match match,
+    MatchTeam battingTeam,
+    MatchTeam bowlingTeam)
+    {
+        if (match.CurrentInnings != 2)
+            return false;
+
+        int target = (bowlingTeam.Runs ?? 0) + 1;
+
+        return (battingTeam.Runs ?? 0) >= target ||
+               (battingTeam.Wickets ?? 0) >= 10 ||
+               (battingTeam.Balls ?? 0) >= 120;
+    }
+    private void FinishMatch(
+    Match match,
+    MatchTeam battingTeam,
+    MatchTeam bowlingTeam)
+    {
+        battingTeam.MatchStatus ??= string.Empty;
+        bowlingTeam.MatchStatus ??= string.Empty;
+
+        if ((battingTeam.Runs ?? 0) > (bowlingTeam.Runs ?? 0))
+        {
+            int wicketsLeft =
+                10 - (battingTeam.Wickets ?? 0);
+
+            match.Result =
+                $"{battingTeam.ShortName} won by {wicketsLeft} wickets";
+
+            battingTeam.MatchStatus = "true";
+            bowlingTeam.MatchStatus = "false";
+        }
+        else if ((battingTeam.Runs ?? 0) <
+                 (bowlingTeam.Runs ?? 0))
+        {
+            int runsMargin =
+                (bowlingTeam.Runs ?? 0) -
+                (battingTeam.Runs ?? 0);
+
+            match.Result =
+                $"{bowlingTeam.ShortName} won by {runsMargin} runs";
+
+            battingTeam.MatchStatus = "false";
+            bowlingTeam.MatchStatus = "true";
+        }
+        else
+        {
+            match.Result = "Match Tied";
+
+            battingTeam.MatchStatus = "false";
+            bowlingTeam.MatchStatus = "false";
+        }
+
+        match.Status = "COMPLETED";
+    }
+    private void UpdateBowlerOvers(MatchPlayer bowler)
+    {
+        int bowlingBalls = bowler.BowlingBalls;
+
+        int completedOvers = bowlingBalls / 6;
+        int remainingBalls = bowlingBalls % 6;
+
+        bowler.Overs =
+            completedOvers + (remainingBalls / 10m);
     }
 
     Task<bool> IMatchService.UpdateMatchAsync(int matchNo, MatchUpdateDto dto)
@@ -610,8 +1053,52 @@ public class MatchServiceManager : IMatchService
         throw new NotImplementedException();
     }
 
-    Task<bool> IMatchService.UpdateTossAsync(TossDto dto)
+    public async Task<bool> UpdateTossAsync(TossDto dto)
     {
-        throw new NotImplementedException();
+        var match = await _matchRepository.GetByMatchNoAsync(dto.MatchNo);
+
+        if (match == null)
+        {
+            Console.WriteLine($"ERROR: Match {dto.MatchNo} not found.");
+            return false;
+        }
+
+        if (string.IsNullOrWhiteSpace(dto.TossWinner))
+        {
+            Console.WriteLine("ERROR: Toss winner is empty.");
+            return false;
+        }
+
+        if (string.IsNullOrWhiteSpace(dto.TossDecision))
+        {
+            Console.WriteLine("ERROR: Toss decision is empty.");
+            return false;
+        }
+
+        match.TossWinner = dto.TossWinner;
+        match.TossDecision = dto.TossDecision;
+
+        await _unitOfWork.SaveChangesAsync();
+
+        Console.WriteLine(
+            $"Toss updated. Winner: {dto.TossWinner}, Decision: {dto.TossDecision}");
+
+        return true;
     }
+    public async Task<bool> CompleteMatchAsync(CompletedMatchDto dto)
+    {
+        var match = await _matchRepository
+            .GetByMatchNoAsync(dto.MatchNo);
+
+        if (match == null)
+            return false;
+
+        match.PlayerOfTheMatch = dto.PlayerOfTheMatch;
+        match.Status = "COMPLETED";
+
+        await _unitOfWork.SaveChangesAsync();
+
+        return true;
+    }
+    
 }

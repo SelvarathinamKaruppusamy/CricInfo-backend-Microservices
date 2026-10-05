@@ -17,3 +17,4 @@ C:\Users\selva.karuppusamy\Desktop\POW\Projects\CricInfo.Microservices\MatchServ
 C:\Users\selva.karuppusamy\Desktop\POW\Projects\CricInfo.Microservices\MatchService.Infrastructure\obj\Debug\net10.0\MatchService.Infrastructure.pdb
 C:\Users\selva.karuppusamy\Desktop\POW\Projects\CricInfo.Microservices\MatchService.Infrastructure\obj\Debug\net10.0\MatchService.Infrastructure.genruntimeconfig.cache
 C:\Users\selva.karuppusamy\Desktop\POW\Projects\CricInfo.Microservices\MatchService.Infrastructure\obj\Debug\net10.0\ref\MatchService.Infrastructure.dll
+C:\Users\selva.karuppusamy\Desktop\POW\Projects\CricInfo.Microservices\MatchService.Infrastructure\obj\Debug\net10.0\MatchService.Infrastructure.sourcelink.json

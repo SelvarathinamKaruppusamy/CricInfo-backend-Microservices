@@ -17,12 +17,92 @@
   },
   {
     "ContainingType": "MatchService.API.Controllers.MatchController",
+    "Method": "GetStoredBalls",
+    "RelativePath": "api/matches/balls/{matchNo}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "matchNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MatchService.API.Controllers.MatchController",
+    "Method": "ChangeBowler",
+    "RelativePath": "api/matches/change-bowler",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "MatchService.Application.DTOs.ChangeBowlerDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MatchService.API.Controllers.MatchController",
     "Method": "GetLiveMatch",
     "RelativePath": "api/matches/live",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MatchService.API.Controllers.MatchController",
+    "Method": "StartSecondInnings",
+    "RelativePath": "api/matches/start-second-innings/{matchNo}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "matchNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MatchService.API.Controllers.MatchController",
+    "Method": "StartMatch",
+    "RelativePath": "api/matches/start/{matchNo}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "matchNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MatchService.API.Controllers.MatchController",
+    "Method": "UpdateToss",
+    "RelativePath": "api/matches/toss",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "MatchService.Application.DTOs.TossDto",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   }
 ]

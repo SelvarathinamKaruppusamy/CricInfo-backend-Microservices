@@ -90,3 +90,4 @@ C:\Users\selva.karuppusamy\Desktop\POW\Projects\CricInfo.Microservices\MatchServ
 C:\Users\selva.karuppusamy\Desktop\POW\Projects\CricInfo.Microservices\MatchService.API\obj\Debug\net10.0\MatchService.API.genruntimeconfig.cache
 C:\Users\selva.karuppusamy\Desktop\POW\Projects\CricInfo.Microservices\MatchService.API\obj\Debug\net10.0\ref\MatchService.API.dll
 C:\Users\selva.karuppusamy\Desktop\POW\Projects\CricInfo.Microservices\MatchService.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\selva.karuppusamy\Desktop\POW\Projects\CricInfo.Microservices\MatchService.API\obj\Debug\net10.0\MatchService.API.sourcelink.json

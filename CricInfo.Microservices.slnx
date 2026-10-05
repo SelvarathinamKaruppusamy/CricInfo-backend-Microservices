@@ -5,4 +5,5 @@
     <Project Path="MatchService.Domain/MatchService.Domain.csproj" />
     <Project Path="MatchService.Infrastructure/MatchService.Infrastructure.csproj" />
   </Folder>
+  <Project Path="ApiGateway/ApiGateway.csproj" Id="a810c775-a255-4e88-8209-77d1ad0a4183" />
 </Solution>

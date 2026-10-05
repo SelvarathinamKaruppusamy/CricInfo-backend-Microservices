@@ -53,11 +53,11 @@ public class MatchPlayerRepository : IMatchPlayerRepository
             .Where(x =>
                 x.TeamId == teamId &&
                 x.MatchNo == matchNo &&
-                x.Status == "NotOut")
+                x.Status != "Out" &&
+                x.Status != "Batting")
             .OrderBy(x => x.PlayerId)
             .FirstOrDefaultAsync();
     }
-
     public async Task AddAsync(MatchPlayer player)
     {
         await _context.MatchPlayers.AddAsync(player);
