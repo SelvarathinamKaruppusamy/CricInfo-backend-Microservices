@@ -5,6 +5,12 @@
     <Project Path="MatchService.Domain/MatchService.Domain.csproj" />
     <Project Path="MatchService.Infrastructure/MatchService.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/PlayerService/">
+    <Project Path="PlayerService/PlayerService.API/PlayerService.API.csproj" />
+    <Project Path="PlayerService/PlayerService.Application/PlayerService.Application.csproj" />
+    <Project Path="PlayerService/PlayerService.Domain/PlayerService.Domain.csproj" />
+    <Project Path="PlayerService/PlayerService.Infrastructure/PlayerService.Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/TeamService/">
     <Project Path="TeamService/TeamService.API/TeamService.API.csproj" />
     <Project Path="TeamService/TeamService.Application/TeamService.Application.csproj" />
