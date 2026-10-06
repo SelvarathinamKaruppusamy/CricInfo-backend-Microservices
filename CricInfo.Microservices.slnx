@@ -1,4 +1,10 @@
 <Solution>
+  <Folder Name="/AdminService/">
+    <Project Path="AdminService/AdminService.API/AdminService.API.csproj" />
+    <Project Path="AdminService/AdminService.Application/AdminService.Application.csproj" />
+    <Project Path="AdminService/AdminService.Domain/AdminService.Domain.csproj" />
+    <Project Path="AdminService/AdminService.Infrastructure/AdminService.Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/MatchService/">
     <Project Path="MatchService.API/MatchService.API.csproj" Id="0705113a-1f2a-482b-8b58-612741b310d1" />
     <Project Path="MatchService.Application/MatchService.Application.csproj" />
