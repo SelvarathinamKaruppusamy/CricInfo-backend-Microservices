@@ -127,7 +127,7 @@ public class PlayersController : ControllerBase
     }
 
     // DELETE:
-    // api/Players/1/team/2/match/1001
+    // api/Players/1/team/2/match/1002
     [HttpDelete("{playerId}/team/{teamId}/match/{matchNo}")]
     public async Task<IActionResult> Delete(
         int playerId,
