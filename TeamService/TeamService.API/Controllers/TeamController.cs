@@ -7,6 +7,7 @@ namespace TeamService.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    //team controllers
     public class TeamController : ControllerBase
     {
         private readonly ITeamService _teamService;
@@ -34,7 +35,7 @@ namespace TeamService.API.Controllers
             return Ok(teams);
         }
 
-        [HttpPost]
+        [HttpPost] 
         public async Task<ActionResult<Teams>> AddAsync(Teams teams)
         {
             var team = await _teamService.CreateAsync(teams);
