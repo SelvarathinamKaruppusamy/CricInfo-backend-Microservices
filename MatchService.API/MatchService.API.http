@@ -4,3 +4,27 @@ GET {{MatchService.API_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+@MatchService.API_HostAddress = http://localhost:5237
+
+### Get live match
+GET {{MatchService.API_HostAddress}}/api/matches/live
+Accept: application/json
+
+###
+
+### Get completed match - Match 1
+GET {{MatchService.API_HostAddress}}/api/matches/completed/1
+Accept: application/json
+
+###
+
+### Get completed match - Match 25
+GET {{MatchService.API_HostAddress}}/api/matches/completed/25
+Accept: application/json
+
+###
+
+### Get completed match - Match 2
+GET {{MatchService.API_HostAddress}}/api/matches/completed/1
+Accept: application/json

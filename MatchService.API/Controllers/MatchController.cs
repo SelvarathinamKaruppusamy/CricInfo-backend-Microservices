@@ -197,4 +197,16 @@ public class MatchController : ControllerBase
             secondInnings
         });
     }
+
+    //
+    [HttpGet("completed/{matchNo}")]
+    public async Task<IActionResult> GetCompletedMatch(int matchNo)
+    {
+        var result = await _matchService.GetCompletedMatchAsync(matchNo);
+
+        if (result == null)
+            return NotFound("Completed match not found.");
+
+        return Ok(result);
+    }
 }

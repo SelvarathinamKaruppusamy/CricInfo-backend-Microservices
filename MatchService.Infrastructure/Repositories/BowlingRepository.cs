@@ -1,4 +1,5 @@
-﻿using MatchService.Application.Interfaces.Repositories;
+﻿using MatchService.Application.DTOs;
+using MatchService.Application.Interfaces.Repositories;
 using MatchService.Domain.Entities;
 using MatchService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -41,5 +42,32 @@ public class BowlingRepository : IBowlingRepository
     public void Update(Bowling bowling)
     {
         _context.Bowlings.Update(bowling);
+    }
+
+    //
+    public async Task<List<CompletedBowlingRecordDto>> GetCompletedByTeamAsync(
+    int teamId,
+    int matchNo)
+    {
+        return await _context.Database
+            .SqlQuery<CompletedBowlingRecordDto>($"""
+            SELECT
+                Id,
+                PlayerId,
+                TeamId,
+                MatchNo,
+                Name,
+                Role,
+                Overs,
+                Balls,
+                Maidens,
+                RunsConceded,
+                Wickets,
+                Economy
+            FROM Bowling
+            WHERE TeamId = {teamId}
+              AND MatchNo = {matchNo}
+            """)
+            .ToListAsync();
     }
 }

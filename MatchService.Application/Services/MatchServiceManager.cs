@@ -13,16 +13,23 @@ public class MatchServiceManager : IMatchService
     private readonly IMatchPlayerRepository _matchPlayerRepository;
     private readonly IUnitOfWork _unitOfWork;
 
+    private readonly IBattingRepository _battingRepository;
+    private readonly IBowlingRepository _bowlingRepository;
+
     public MatchServiceManager(
-     IMatchRepository matchRepository,
-     IMatchTeamRepository matchTeamRepository,
-     IMatchPlayerRepository matchPlayerRepository,
-     IUnitOfWork unitOfWork)
+       IMatchRepository matchRepository,
+       IMatchTeamRepository matchTeamRepository,
+       IMatchPlayerRepository matchPlayerRepository,
+       IBattingRepository battingRepository,
+       IBowlingRepository bowlingRepository,
+       IUnitOfWork unitOfWork)
     {
         _matchRepository = matchRepository;
         _matchTeamRepository = matchTeamRepository;
         _matchPlayerRepository = matchPlayerRepository;
         _unitOfWork = unitOfWork;
+        _battingRepository = battingRepository;
+        _bowlingRepository = bowlingRepository;
     }
     public async Task<bool> ChangeBowlerAsync(ChangeBowlerDto dto)
     {
@@ -1100,5 +1107,105 @@ public class MatchServiceManager : IMatchService
 
         return true;
     }
-    
+    //
+
+    public async Task<CompletedMatchResponseDto?> GetCompletedMatchAsync(int matchNo)
+    {
+        // 1. Get match
+        var match = await _matchRepository.GetByMatchNoAsync(matchNo);
+
+        if (match == null)
+            return null;
+
+        // 2. Make sure it is completed
+        if (!string.Equals(
+            match.Status,
+            "COMPLETED",
+            StringComparison.OrdinalIgnoreCase))
+        {
+            return null;
+        }
+
+        // 3. Get teams
+        var teams = await _matchTeamRepository
+            .GetByMatchNoAsync(matchNo);
+
+        // 4. Create completed match response
+        var result = new CompletedMatchResponseDto
+        {
+            MatchNo = match.MatchNo,
+            Venue = match.Venue,
+            City = match.City,
+            Date = match.Date,
+            TossWinner = match.TossWinner,
+            TossDecision = match.TossDecision,
+            Result = match.Result,
+            PlayerOfTheMatch = match.PlayerOfTheMatch,
+            Status = match.Status
+        };
+
+        // 5. Build each team
+        foreach (var team in teams)
+        {
+            var battingRecords = await _battingRepository
+                .GetByTeamAsync(team.TeamId, matchNo);
+
+            var bowlingRecords = await _bowlingRepository
+     .GetCompletedByTeamAsync(team.TeamId, matchNo);
+
+            var teamDto = new CompletedTeamDto
+            {
+                TeamId = team.TeamId,
+                FullName = team.FullName,
+                ShortName = team.ShortName,
+                Logo = team.Logo,
+                Scores = team.Scores,
+                Runs = team.Runs,
+                Wickets = team.Wickets,
+                Extras = team.Extras,
+                Overs = team.Overs,
+                Balls = team.Balls,
+                MatchStatus = team.MatchStatus
+            };
+
+            // 6. Add batting
+            foreach (var batting in battingRecords)
+            {
+                teamDto.Batting.Add(new CompletedBattingDto
+                {
+                    Id = batting.Id,
+                    Name = batting.Name,
+                    Role = batting.Role,
+                    Runs = batting.Runs,
+                    Balls = batting.Balls,
+                    Fours = batting.Fours,
+                    Sixes = batting.Sixes,
+                    StrikeRate = batting.StrikeRate,
+                    Status = batting.Status
+                });
+            }
+
+            // 7. Add bowling
+            foreach (var bowling in bowlingRecords)
+            {
+                teamDto.Bowling.Add(new CompletedBowlingDto
+                {
+                    Id = bowling.Id,
+                    Name = bowling.Name,
+                    Role = bowling.Role,
+                    Overs = bowling.Overs,
+                    Balls = bowling.Balls,
+                    Maidens = bowling.Maidens,
+                    RunsConceded = bowling.RunsConceded,
+                    Wickets = bowling.Wickets,
+                    Economy = bowling.Economy
+                });
+            }
+
+            result.Teams.Add(teamDto);
+        }
+
+        return result;
+    }
+
 }

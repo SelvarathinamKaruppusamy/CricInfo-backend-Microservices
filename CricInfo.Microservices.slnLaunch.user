@@ -9,6 +9,14 @@
       {
         "Path": "ApiGateway\\ApiGateway.csproj",
         "Action": "Start"
+      },
+      {
+        "Path": "PlayerService\\PlayerService.API\\PlayerService.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "TeamService\\TeamService.API\\TeamService.API.csproj",
+        "Action": "Start"
       }
     ]
   }

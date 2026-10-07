@@ -28,4 +28,7 @@ public interface IMatchService
 
     Task<List<MatchDto>> GetUpcomingMatchesAsync();
     Task<bool> CompleteMatchAsync(CompletedMatchDto dto);
+
+    //
+    Task<CompletedMatchResponseDto?> GetCompletedMatchAsync(int matchNo);
 }
